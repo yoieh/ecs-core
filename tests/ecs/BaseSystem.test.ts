@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
 
-import { Engine } from '..';
-import { BaseSystem } from './BaseSystem';
+import { Engine } from '../../src';
+import { BaseSystem } from '../../src/ecs/BaseSystem';
 
 class S extends BaseSystem {}
 

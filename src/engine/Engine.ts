@@ -6,12 +6,11 @@ export class Engine implements IUpdate {
   private stopUpdate = false;
 
   private static _instance: Engine;
-
   public static get instance(): Engine {
-    if (!Engine.instance) {
+    if (!Engine._instance) {
       Engine._instance = new Engine();
     }
-    return Engine.instance;
+    return Engine._instance;
   }
 
   private lastTimestamp = 0;

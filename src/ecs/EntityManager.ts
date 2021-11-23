@@ -1,5 +1,5 @@
 import { Signal } from '@yoieh/signal';
-import { IEntity } from '../../';
+import { IEntity } from '..';
 
 export class EntityManager {
   public onEntityAdded = new Signal();
@@ -8,10 +8,10 @@ export class EntityManager {
 
   private static _instance: EntityManager;
   public static get instance(): EntityManager {
-    if (!EntityManager.instance) {
+    if (!EntityManager._instance) {
       EntityManager._instance = new EntityManager();
     }
-    return EntityManager.instance;
+    return EntityManager._instance;
   }
 
   private _entities: IEntity[];

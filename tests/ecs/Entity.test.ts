@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
 
-import { Entity, IComponent } from '../../';
+import { Entity, IComponent } from '../../src';
 
 class E extends Entity {}
 class C1 implements IComponent {
@@ -50,30 +50,30 @@ describe('>>> Entity', () => {
   });
 
   it('should add, remove, get, and check components', () => {
-    expect(e.Components.length).toBe(0);
-    e.AddComponent(c1);
-    e.AddComponent(c2);
-    e.AddComponent(c3);
+    expect(e.components.length).toBe(0);
+    e.addComponent(c1);
+    e.addComponent(c2);
+    e.addComponent(c3);
 
-    expect(e.Components.length).toBe(3);
-    expect(e.Components[0]).toBe(c1);
-    expect(e.Components[1]).toBe(c2);
-    expect(e.Components[2]).toBe(c3);
+    expect(e.components.length).toBe(3);
+    expect(e.components[0]).toBe(c1);
+    expect(e.components[1]).toBe(c2);
+    expect(e.components[2]).toBe(c3);
 
-    e.RemoveComponent(C2);
-    expect(e.Components.length).toBe(2);
-    expect(e.Components[0]).toBe(c1);
-    expect(e.Components[1]).toBe(c3);
+    e.removeComponent(C2);
+    expect(e.components.length).toBe(2);
+    expect(e.components[0]).toBe(c1);
+    expect(e.components[1]).toBe(c3);
 
-    expect(e.GetComponent(C1)).toBe(c1);
-    expect(e.GetComponent(C3)).toBe(c3);
+    expect(e.getComponent(C1)).toBe(c1);
+    expect(e.getComponent(C3)).toBe(c3);
 
-    expect(e.HasComponent(C1)).toBeTruthy();
-    expect(e.HasComponent(C3)).toBeTruthy();
+    expect(e.hasComponent(C1)).toBeTruthy();
+    expect(e.hasComponent(C3)).toBeTruthy();
   });
 
   it("should throw error if component wasn't found", () => {
-    expect(e.HasComponent(C1)).toBeFalsy();
-    expect(() => e.GetComponent(C1)).toThrow();
+    expect(e.hasComponent(C1)).toBeFalsy();
+    expect(() => e.getComponent(C1)).toThrow();
   });
 });

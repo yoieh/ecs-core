@@ -1,5 +1,4 @@
-import { TConstr } from '..';
-import { IComponent } from '../../';
+import { TConstr, IComponent } from '..';
 
 export interface IEntity {
   id: number;

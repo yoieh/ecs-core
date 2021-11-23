@@ -1,5 +1,4 @@
-import { IAwake, IUpdate } from '..';
-import { IEntity } from '../../';
+import { IAwake, IEntity, IUpdate } from '..';
 
 export interface IComponent extends IAwake, IUpdate {
   entity: IEntity | null;
