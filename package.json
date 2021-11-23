@@ -44,5 +44,12 @@
   },
   "bugs": {
     "url": "https://github.com/yoieh/signal/issues"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "@yoieh/signal": "^0.0.10",
+    "@yoieh/use-signal": "^0.0.3"
   }
 }
