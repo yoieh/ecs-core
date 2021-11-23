@@ -1,0 +1,48 @@
+{
+  "name": "@yoieh/ecs-engine",
+  "version": "0.0.0",
+  "description": "@yoieh/ecs-engine",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoieh/ecs-engine.git"
+  },
+  "homepage": "https://yoieh.github.io/ecs-engine/",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "test:all": "jest --config jestconfig.json --watchAll",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint -c .eslintrc.js --ext .ts ./src",
+    "prepare": "npm run build",
+    "prepublishOnly": "jest --config jestconfig.json && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsdoc": "^37.0.3",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-react": "^7.27.1",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.5.2"
+  },
+  "bugs": {
+    "url": "https://github.com/yoieh/signal/issues"
+  }
+}
