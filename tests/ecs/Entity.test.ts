@@ -97,4 +97,10 @@ describe('>>> Entity', () => {
     e.addComponent(c1);
     expect(e.hasAll(C1, C2)).toBeFalsy();
   });
+
+  it('should over write components if added more then one time', () => {
+    e.addComponent(c1);
+    e.addComponent(c1);
+    expect(e.components.length).toBe(1);
+  });
 });

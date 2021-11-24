@@ -24,7 +24,8 @@ export class Entity implements IEntity {
   }
 
   public addComponent(component: IComponent) {
-    this.components.push(component);
+    // overtides component if already exists
+    this._components = [...this.components.filter((c) => c.constructor.name !== component.constructor.name), component];
     this.onComponentAdded.dispatch(this, component);
   }
 
