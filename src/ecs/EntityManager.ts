@@ -1,6 +1,5 @@
 import { Signal } from '@yoieh/signal';
-import { IComponent, IEntity } from '..';
-import { Query } from './Query';
+import { IEntity } from '..';
 
 export class EntityManager {
   public onEntityAdded = new Signal();
