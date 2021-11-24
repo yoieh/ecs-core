@@ -6,9 +6,7 @@
 /* eslint-disable max-classes-per-file */
 
 import { Engine } from '../../src';
-import { BaseSystem } from '../../src/ecs/BaseSystem';
-
-class S extends BaseSystem {}
+import { S1 } from '../_test_classes/S1';
 
 describe('>>> System', () => {
   let engine: Engine;
@@ -23,7 +21,7 @@ describe('>>> System', () => {
   });
 
   it('should trigger OnCreate', () => {
-    const s = new S();
+    const s = new S1();
     const spy = jest.spyOn(s, 'onCreate');
 
     s.onCreate(0);
@@ -33,7 +31,7 @@ describe('>>> System', () => {
 
   it('should trigger OnUpdate', () => {
     engine = Engine.instance;
-    const s = new S();
+    const s = new S1();
     const spy = jest.spyOn(s, 'onUpdate');
 
     s.onUpdate(0);
@@ -42,7 +40,7 @@ describe('>>> System', () => {
   });
 
   it('should trigger OnDestroy', () => {
-    const s = new S();
+    const s = new S1();
     const spy = jest.spyOn(s, 'onDestroy');
 
     s.onDestroy(0);

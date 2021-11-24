@@ -1,5 +1,6 @@
 import { Signal } from '@yoieh/signal';
-import { IEntity } from '..';
+import { IComponent, IEntity } from '..';
+import { Query } from './Query';
 
 export class EntityManager {
   public onEntityAdded = new Signal();
@@ -39,6 +40,7 @@ export class EntityManager {
     this.entities.push(entity);
     this.entityId += 1;
     this.onEntityAdded.dispatch(entity);
+
     return entity;
   }
 

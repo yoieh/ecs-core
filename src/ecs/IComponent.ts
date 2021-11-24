@@ -1,7 +1,5 @@
-import { IAwake, IEntity, IUpdate } from '..';
+import { IAwake, IUpdate } from '..';
 
-export interface IComponent extends IAwake, IUpdate {
-  entity: IEntity | null;
-}
+export interface IComponent extends IAwake, IUpdate {}
 
 export default IComponent;

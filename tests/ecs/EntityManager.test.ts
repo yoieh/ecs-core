@@ -2,8 +2,6 @@ import { SignalListener } from '@yoieh/signal';
 import { Entity } from '../../src';
 import { EntityManager } from '../../src/ecs/EntityManager';
 
-class E extends Entity {}
-
 describe('>>> EntityManager', () => {
   let entityManager: EntityManager;
 
@@ -13,12 +11,12 @@ describe('>>> EntityManager', () => {
   });
 
   it('should create an instance of "Entity" with id', () => {
-    const entity = new E(1);
+    const entity = new Entity(1);
     expect(entity.id).toBe(1);
   });
 
   it("should add an instance of 'Entity' to 'EntityManager'", () => {
-    const entity = new E(1);
+    const entity = new Entity(1);
     entityManager = EntityManager.instance;
     const spy1 = jest.fn();
     new SignalListener(entityManager.onEntityAdded, spy1);
@@ -30,7 +28,7 @@ describe('>>> EntityManager', () => {
   });
 
   it("should remove an instance of 'Entity' from 'EntityManager'", () => {
-    const entity = new E(1);
+    const entity = new Entity(1);
     entityManager = EntityManager.instance;
     const spy1 = jest.fn();
     new SignalListener(entityManager.onEntityAdded, spy1);

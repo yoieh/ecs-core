@@ -2,51 +2,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
 
-import { Entity, IComponent, IEntity } from '../../src';
-
-class E extends Entity implements IEntity {}
-class C1 implements IComponent {
-  public entity: E = new E(1);
-
-  public awake(): void {
-    /* ... */
-  }
-
-  public update(_deltaTime: number): void {
-    /* ... */
-  }
-}
-class C2 implements IComponent {
-  public entity: E = new E(2);
-
-  public awake(): void {
-    /* ... */
-  }
-
-  public update(_deltaTime: number): void {
-    /* ... */
-  }
-}
-class C3 implements IComponent {
-  public entity: E = new E(3);
-
-  public awake(): void {
-    /* ... */
-  }
-
-  public update(_deltaTime: number): void {
-    /* ... */
-  }
-}
+import { SignalListener } from '@yoieh/signal';
+import { Entity } from '../../src';
+import { C1 } from '../_test_classes/C1';
+import { C2 } from '../_test_classes/C2';
+import { C3 } from '../_test_classes/C3';
 
 describe('>>> Entity', () => {
-  let e: E;
+  let e: Entity;
   const c1 = new C1();
   const c2 = new C2();
   const c3 = new C3();
 
   beforeEach(() => {
-    e = new E(4);
+    e = new Entity(4);
   });
 
   it('should add, remove, get, and check components', () => {
@@ -77,10 +46,37 @@ describe('>>> Entity', () => {
     expect(() => e.getComponent(C1)).toThrow();
   });
 
+  it('should trigger onComponentAdded', () => {
+    const spy1 = jest.fn();
+    new SignalListener(e.onComponentAdded, spy1);
+
+    e.addComponent(c1);
+
+    expect(spy1).toHaveBeenCalledTimes(1);
+  });
+
+  it('should trigger onComponentRemoved', () => {
+    const spy1 = jest.fn();
+    new SignalListener(e.onComponentRemoved, spy1);
+
+    e.addComponent(c1);
+    e.removeComponent(C1);
+
+    expect(spy1).toHaveBeenCalledTimes(1);
+  });
+
   it('should have component', () => {
     expect(e.has(C1)).toBeFalsy();
     e.addComponent(c1);
     expect(e.has(C1)).toBeTruthy();
+  });
+
+  it('should not have component', () => {
+    expect(e.has(C1)).toBeFalsy();
+    e.addComponent(c1);
+    e.removeComponent(C1);
+    expect(e.has(C1)).toBeFalsy();
+    expect(e.hasNone(C1)).toBeTruthy();
   });
 
   it('should have all components', () => {

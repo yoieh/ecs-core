@@ -1,6 +1,10 @@
+import { Signal } from '@yoieh/signal';
 import { IComponent, IEntity, TConstr } from '..';
 
 export class Entity implements IEntity {
+  public onComponentAdded = new Signal();
+  public onComponentRemoved = new Signal();
+
   id: number;
 
   protected _components: IComponent[] = [];
@@ -14,12 +18,24 @@ export class Entity implements IEntity {
     this._components = [];
   }
 
+  public add(component: IComponent) {
+    this.addComponent(component);
+    return this;
+  }
+
   public addComponent(component: IComponent) {
     this.components.push(component);
+    this.onComponentAdded.dispatch(this, component);
+  }
+
+  public remove<C extends IComponent>(constr: TConstr<C>) {
+    this.removeComponent(constr);
+    return this;
   }
 
   public removeComponent<C extends IComponent>(constr: TConstr<C>): void {
     this._components = this.components.filter((c) => !(c instanceof constr));
+    this.onComponentRemoved.dispatch(constr);
   }
 
   public getComponent<C extends IComponent>(constr: TConstr<C>): C {
@@ -47,8 +63,6 @@ export class Entity implements IEntity {
   public hasNone(...constrs: TConstr<IComponent>[]): boolean {
     return !this.hasAny(...constrs);
   }
-
-  
 }
 
 export default Entity;
