@@ -6,5 +6,5 @@ export interface IEntity {
   addComponent(component: IComponent): void;
   getComponent<C extends IComponent>(constr: TConstr<C>): C;
   removeComponent<C extends IComponent>(constr: TConstr<C>): void;
-  hasComponent<C extends IComponent>(constr: TConstr<C>): boolean;
+  has<C extends IComponent>(constr: TConstr<C>): boolean;
 }

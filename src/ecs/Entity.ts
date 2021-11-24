@@ -32,9 +32,23 @@ export class Entity implements IEntity {
     throw new Error(`Component ${constr.name} not found on Entity ${this.constructor.name}`);
   }
 
-  public hasComponent<C extends IComponent>(constr: TConstr<C>): boolean {
+  public has<C extends IComponent>(constr: TConstr<C>): boolean {
     return this.components.find((c) => c instanceof constr) !== undefined;
   }
+
+  public hasAll(...constrs: TConstr<IComponent>[]): boolean {
+    return constrs.every((c) => this.has(c));
+  }
+
+  public hasAny(...constrs: TConstr<IComponent>[]): boolean {
+    return constrs.some((c) => this.has(c));
+  }
+
+  public hasNone(...constrs: TConstr<IComponent>[]): boolean {
+    return !this.hasAny(...constrs);
+  }
+
+  
 }
 
 export default Entity;

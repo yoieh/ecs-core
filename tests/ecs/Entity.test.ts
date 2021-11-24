@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
 
-import { Entity, IComponent } from '../../src';
+import { Entity, IComponent, IEntity } from '../../src';
 
-class E extends Entity {}
+class E extends Entity implements IEntity {}
 class C1 implements IComponent {
   public entity: E = new E(1);
 
@@ -68,12 +68,37 @@ describe('>>> Entity', () => {
     expect(e.getComponent(C1)).toBe(c1);
     expect(e.getComponent(C3)).toBe(c3);
 
-    expect(e.hasComponent(C1)).toBeTruthy();
-    expect(e.hasComponent(C3)).toBeTruthy();
+    expect(e.has(C1)).toBeTruthy();
+    expect(e.has(C3)).toBeTruthy();
   });
 
   it("should throw error if component wasn't found", () => {
-    expect(e.hasComponent(C1)).toBeFalsy();
+    expect(e.has(C1)).toBeFalsy();
     expect(() => e.getComponent(C1)).toThrow();
+  });
+
+  it('should have component', () => {
+    expect(e.has(C1)).toBeFalsy();
+    e.addComponent(c1);
+    expect(e.has(C1)).toBeTruthy();
+  });
+
+  it('should have all components', () => {
+    expect(e.hasAll(C1, C2)).toBeFalsy();
+    e.addComponent(c1);
+    e.addComponent(c2);
+    expect(e.hasAll(C1, C2)).toBeTruthy();
+  });
+
+  it('should have any componets', () => {
+    expect(e.hasAny(C1, C2)).toBeFalsy();
+    e.addComponent(c1);
+    expect(e.hasAny(C1, C2)).toBeTruthy();
+  });
+
+  it('should not have all components', () => {
+    expect(e.hasAll(C1, C2)).toBeFalsy();
+    e.addComponent(c1);
+    expect(e.hasAll(C1, C2)).toBeFalsy();
   });
 });
