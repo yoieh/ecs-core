@@ -9,3 +9,4 @@ export * from './ecs/Entity';
 export * from './ecs/EntityManager';
 export * from './ecs/IComponent';
 export * from './ecs/BaseSystem';
+export * from './ecs/Query';
