@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-classes-per-file */
@@ -10,6 +13,15 @@ class S extends BaseSystem {}
 describe('>>> System', () => {
   let engine: Engine;
 
+  beforeEach(() => {
+    engine = Engine.instance;
+    for (const system of engine.systems) {
+      engine.unregisterSystem(system);
+    }
+
+    window.requestAnimationFrame = jest.fn().mockImplementationOnce((cb) => cb()); // <-- ADD
+  });
+
   it('should trigger OnCreate', () => {
     const s = new S();
     const spy = jest.spyOn(s, 'onCreate');
@@ -20,6 +32,7 @@ describe('>>> System', () => {
   });
 
   it('should trigger OnUpdate', () => {
+    engine = Engine.instance;
     const s = new S();
     const spy = jest.spyOn(s, 'onUpdate');
 

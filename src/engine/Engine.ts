@@ -1,9 +1,14 @@
 import { BaseSystem } from '../ecs/BaseSystem';
 import { IUpdate } from '../lifecycle/IUpdate';
 import { EntityManager } from '../ecs/EntityManager';
+import { Signal } from '@yoieh/signal';
 
 export class Engine implements IUpdate {
   private stopUpdate = false;
+
+  public onSystemAdded = new Signal();
+
+  public onSystemRemoved = new Signal();
 
   private static _instance: Engine;
   public static get instance(): Engine {
@@ -13,16 +18,9 @@ export class Engine implements IUpdate {
     return Engine._instance;
   }
 
-  private lastTimestamp = 0;
-
   public systems: BaseSystem[] = [];
 
   public entityManager: EntityManager = EntityManager.instance;
-
-  public constructor() {
-    // eslint-disable-next-line no-console
-    console.log('Engine created');
-  }
 
   public update(deltaTime: number): void {
     // eslint-disable-next-line no-restricted-syntax
@@ -34,15 +32,13 @@ export class Engine implements IUpdate {
   }
 
   public registerSystem(system: BaseSystem): void {
-    // eslint-disable-next-line no-console
-    console.log(`Register: ${system.constructor.name}`);
     this.systems.push(system);
+    this.onSystemAdded.dispatch(system);
   }
 
   public unregisterSystem(system: BaseSystem): void {
-    // eslint-disable-next-line no-console
-    console.log(`Unregister: ${system.constructor.name}`);
     this.systems = this.systems.filter((s) => s !== system);
+    this.onSystemRemoved.dispatch(system);
   }
 }
 
