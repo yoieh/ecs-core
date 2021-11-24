@@ -1,6 +1,6 @@
 {
   "name": "@yoieh/ecs-engine",
-  "version": "0.0.4-1",
+  "version": "0.0.4",
   "description": "@yoieh/ecs-engine",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
