@@ -1,1 +1,1 @@
-export type TConstr<T> = new (...args: unknown[]) => T;
+export type TConstr<T> = new (...args: any[]) => T;

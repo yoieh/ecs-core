@@ -4,7 +4,7 @@ import { Signal } from '@yoieh/signal';
 export interface IEntity {
   id: number;
   components: IComponent[];
-  getComponent<C extends IComponent>(constr: TConstr<C>): C;
+  get<C extends IComponent>(constr: TConstr<C>): C;
   onComponentAdded: Signal<(entity: IEntity, component: IComponent) => void>;
   add<C extends IComponent>(component: C): this;
   addComponent(component: IComponent): void;

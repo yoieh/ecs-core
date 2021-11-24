@@ -34,8 +34,8 @@ describe('>>> Entity', () => {
     expect(e.components[0]).toBe(c1);
     expect(e.components[1]).toBe(c3);
 
-    expect(e.getComponent(C1)).toBe(c1);
-    expect(e.getComponent(C3)).toBe(c3);
+    expect(e.get(C1)).toBe(c1);
+    expect(e.get(C3)).toBe(c3);
 
     expect(e.has(C1)).toBeTruthy();
     expect(e.has(C3)).toBeTruthy();
@@ -43,7 +43,7 @@ describe('>>> Entity', () => {
 
   it("should throw error if component wasn't found", () => {
     expect(e.has(C1)).toBeFalsy();
-    expect(() => e.getComponent(C1)).toThrow();
+    expect(() => e.get(C1)).toThrow();
   });
 
   it('should trigger onComponentAdded', () => {

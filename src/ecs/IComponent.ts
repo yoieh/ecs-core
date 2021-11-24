@@ -1,5 +1,4 @@
-import { IAwake, IUpdate } from '..';
-
-export interface IComponent extends IAwake, IUpdate {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface IComponent {}
 
 export default IComponent;

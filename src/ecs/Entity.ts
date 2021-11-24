@@ -39,7 +39,7 @@ export class Entity implements IEntity {
     this.onComponentRemoved.dispatch(constr);
   }
 
-  public getComponent<C extends IComponent>(constr: TConstr<C>): C {
+  public get<C extends IComponent>(constr: TConstr<C>): C {
     const component = this.components.find((c) => c instanceof constr);
 
     if (component) {
