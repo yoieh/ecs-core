@@ -1,6 +1,6 @@
 {
   "name": "@yoieh/ecs-core",
-  "version": "0.0.5-2",
+  "version": "0.0.5-3",
   "description": "@yoieh/ecs-core",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
