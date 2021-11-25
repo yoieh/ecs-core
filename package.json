@@ -21,8 +21,6 @@
     "build": "tsc -p ./tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint -c .eslintrc.js --ext .ts ./src",
-    "prepare": "npm run build",
-    "prepublishOnly": "jest --config jestconfig.json && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
