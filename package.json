@@ -1,7 +1,7 @@
 {
-  "name": "@yoieh/ecs-engine",
+  "name": "@yoieh/ecs-core",
   "version": "0.0.5-1",
-  "description": "@yoieh/ecs-engine",
+  "description": "@yoieh/ecs-core",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "keywords": [],
@@ -9,9 +9,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yoieh/ecs-engine.git"
+    "url": "git+https://github.com/yoieh/ecs-core.git"
   },
-  "homepage": "https://yoieh.github.io/ecs-engine/",
+  "homepage": "https://yoieh.github.io/ecs-core/",
   "files": [
     "lib/**/*"
   ],

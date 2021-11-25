@@ -65,10 +65,10 @@ jobs:
       - name: Run build    
         run: npm build
       
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v2
         with:
           name: lib
-          path: lib
+          path: lib/
 
   publish-npm:
     needs:
@@ -90,10 +90,10 @@ jobs:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
 
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v2
         with:
           name: lib
-          path: lib
+          path: lib/
 
       - run: npm publish --access public
         env:
@@ -123,10 +123,10 @@ jobs:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
 
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v2
         with:
           name: lib
-          path: lib
+          path: lib/
 
       - run: npm publish
         env:
