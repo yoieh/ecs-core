@@ -17,7 +17,7 @@ export class Query {
     this._entityManager = entityManager;
   }
 
-  public find(entities: IEntity[]): IEntity | undefined {
+  public find(entities: IEntity[] = this._entityManager.entities): IEntity | undefined {
     return entities.find(this._filter);
   }
 

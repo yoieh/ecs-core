@@ -58,8 +58,17 @@ describe('>>> Query', () => {
 
         expect(entitie).toBeDefined();
         // will always just return first found entity
-        expect(entitie?.id).toBe(1);
+        expect(entitie).not.toBeInstanceOf(Array);
       });
+    });
+
+    it('should find with out inputing entities', () => {
+      const query = new Query((entity: IEntity) => entity.has(C1));
+      const entitie = query.find();
+
+      expect(entitie).toBeDefined();
+      // will always just return first found entity
+      expect(entitie).not.toBeInstanceOf(Array);
     });
 
     describe('>>> Query filter', () => {
