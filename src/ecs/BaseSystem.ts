@@ -9,10 +9,6 @@ export abstract class BaseSystem {
 
   public enabled = true;
 
-  constructor() {
-    Engine.instance.registerSystem(this);
-  }
-
   public onCreate(deltaTime: number) {}
 
   public onUpdate(deltaTime: number) {}

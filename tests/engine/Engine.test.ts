@@ -23,7 +23,7 @@ describe('>>> Engine', () => {
     const dt = now - lastUpdate;
     lastUpdate = now;
 
-    engine.update(dt);
+    engine.tick(dt);
     // render(dt);
   };
 
@@ -35,25 +35,31 @@ describe('>>> Engine', () => {
 
   beforeEach(() => {
     engine = Engine.instance;
+
+    // window.requestAnimationFrame = jest.fn().mockImplementationOnce((cb) => cb()); // <-- ADD
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+
     for (const system of engine.systems) {
       engine.unregisterSystem(system);
     }
 
-    window.requestAnimationFrame = jest.fn().mockImplementationOnce((cb) => cb()); // <-- ADD
+    loop(5);
   });
 
-  it('should register a new system', () => {
-    const s1 = new S1();
-
+  it('should register a new system with out a engine tick', () => {
+    engine.createSystem(S1);
     expect(engine.systems.length).toBe(1);
   });
 
   it('should update registerd systems', () => {
     engine = Engine.instance;
     engine.update(1);
-    const s1 = new S1();
-    const s2 = new S2();
-    const s3 = new S3();
+    const s1 = engine.createSystem(S1);
+    const s2 = engine.createSystem(S2);
+    const s3 = engine.createSystem(S3);
 
     const spyOnUpdate1 = jest.spyOn(s1, 'onUpdate');
     const spyOnUpdate2 = jest.spyOn(s2, 'onUpdate');
@@ -75,9 +81,9 @@ describe('>>> Engine', () => {
 
     new SignalListener(engine.onSystemAdded, spy2);
 
-    const s1 = new S1();
-    const s2 = new S2();
-    const s3 = new S3();
+    engine.createSystem(S1);
+    engine.createSystem(S2);
+    engine.createSystem(S3);
 
     expect(spy1).toHaveBeenCalledTimes(3);
     expect(spy2).toHaveBeenCalledTimes(3);
@@ -93,15 +99,39 @@ describe('>>> Engine', () => {
 
     new SignalListener(engine.onSystemRemoved, spy2);
 
-    const s1 = new S1();
-    const s2 = new S2();
-    const s3 = new S3();
+    const s1 = engine.createSystem(S1);
+    engine.createSystem(S2);
+    engine.createSystem(S3);
+
+    const systemsCount = engine.systems.length;
+
+    expect(systemsCount).toBe(3);
 
     engine.unregisterSystem(s1);
+
+    loop(1);
 
     expect(spy1).toHaveBeenCalledTimes(1);
     expect(spy2).toHaveBeenCalledTimes(1);
 
-    expect(engine.systems.length).toBe(2);
+    expect(engine.systems.length).toBe(systemsCount - 1);
+  });
+
+  it('should create systems', () => {
+    engine = Engine.instance;
+
+    const spy1 = jest.spyOn(engine, 'createSystem');
+    const spy2 = jest.fn();
+
+    new SignalListener(engine.onSystemAdded, spy2);
+
+    engine.createSystem(S1);
+    engine.createSystem(S2);
+    engine.createSystem(S3);
+
+    expect(spy1).toHaveBeenCalledTimes(3);
+    expect(spy2).toHaveBeenCalledTimes(3);
+
+    expect(engine.systems.length).toBe(3);
   });
 });

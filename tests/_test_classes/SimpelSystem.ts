@@ -3,11 +3,13 @@ import { Query } from '../../src/ecs/Query';
 import { CValue } from './CValue';
 
 export class SimpelSystem extends BaseSystem {
-  public q: Query;
+  public q!: Query;
 
   public constructor() {
     super();
+  }
 
+  public onCreate(delta: number): void {
     this.q = new Query((entity: IEntity) => entity.has(CValue));
   }
 
