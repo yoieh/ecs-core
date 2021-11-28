@@ -16,9 +16,9 @@ export class SimpelSystem extends BaseSystem {
   public onUpdate(delta: number): void {
     const entities = this.q.filter(this.entityManager.entities);
 
-    this.q.foreach(entities, (entity: IEntity) => {
+    this.q.foreach((entity: IEntity) => {
       const cValue = entity.get(CValue);
       cValue.value = delta + 1;
-    });
+    }, entities);
   }
 }

@@ -115,7 +115,7 @@ describe('>>> Query', () => {
     describe('>>> Query map', () => {
       it('should map all entities with a componet C1', () => {
         const query = new Query((entity: IEntity) => entity.has(C1));
-        const entities = query.map(entityManager.entities, (entity: IEntity) => entity);
+        const entities = query.map((entity: IEntity) => entity, entityManager.entities);
 
         expect(entities).toBeDefined();
         expect(entities.length).toBe(3);
@@ -132,7 +132,7 @@ describe('>>> Query', () => {
         expect(beforeFilter).toBeDefined();
         expect(beforeFilter.length).toBe(1);
 
-        const beforeEntities = beforeQuery.map(beforeFilter, (entity: IEntity) => entity);
+        const beforeEntities = beforeQuery.map((entity: IEntity) => entity, beforeFilter);
 
         expect(beforeEntities).toBeDefined();
         expect(beforeEntities.length).toBe(1);
@@ -143,7 +143,7 @@ describe('>>> Query', () => {
         expect(updateFilter).toBeDefined();
         expect(updateFilter.length).toBe(2);
 
-        const updateEntities = updateQuery.map(updateFilter, (entity: IEntity) => entity.add(new C3()));
+        const updateEntities = updateQuery.map((entity: IEntity) => entity.add(new C3()), updateFilter);
 
         expect(updateEntities).toBeDefined();
         expect(updateEntities.length).toBe(2);
@@ -154,7 +154,7 @@ describe('>>> Query', () => {
         expect(afterFilter).toBeDefined();
         expect(afterFilter.length).toBe(beforeEntities.length + updateEntities.length);
 
-        const afterEntities = afterQuery.map(afterFilter, (entity: IEntity) => entity);
+        const afterEntities = afterQuery.map((entity: IEntity) => entity, afterFilter);
 
         expect(afterEntities).toBeDefined();
         expect(afterEntities.length).toBe(beforeEntities.length + updateEntities.length);
@@ -167,7 +167,7 @@ describe('>>> Query', () => {
         expect(beforeFilter).toBeDefined();
         expect(beforeFilter.length).toBe(1);
 
-        const beforeEntities = beforeQuery.map(beforeFilter, (entity: IEntity) => entity);
+        const beforeEntities = beforeQuery.map((entity: IEntity) => entity, beforeFilter);
 
         expect(beforeEntities).toBeDefined();
         expect(beforeEntities.length).toBe(1);
@@ -178,7 +178,7 @@ describe('>>> Query', () => {
         expect(updateFilter).toBeDefined();
         expect(updateFilter.length).toBe(1);
 
-        const updateEntities = updateQuery.map(updateFilter, (entity: IEntity) => entity.remove(C3));
+        const updateEntities = updateQuery.map((entity: IEntity) => entity.remove(C3), updateFilter);
 
         expect(updateEntities).toBeDefined();
         expect(updateEntities.length).toBe(1);
@@ -189,7 +189,7 @@ describe('>>> Query', () => {
         expect(afterFilter).toBeDefined();
         expect(afterFilter.length).toBe(beforeEntities.length - updateEntities.length);
 
-        const afterEntities = afterQuery.map(afterFilter, (entity: IEntity) => entity);
+        const afterEntities = afterQuery.map((entity: IEntity) => entity, afterFilter);
 
         expect(afterEntities).toBeDefined();
         expect(afterEntities.length).toBe(beforeEntities.length - updateEntities.length);
@@ -202,9 +202,9 @@ describe('>>> Query', () => {
         const entities = query.filter(entityManager.entities);
 
         let count = 0;
-        query.foreach(entities, (entity: IEntity) => {
+        query.foreach((entity: IEntity) => {
           count++;
-        });
+        }, entities);
 
         expect(count).toBe(3);
       });
@@ -214,9 +214,9 @@ describe('>>> Query', () => {
         const entities = query.filter(entityManager.entities);
 
         let count = 0;
-        query.foreach(entities, (entity: IEntity) => {
+        query.foreach((entity: IEntity) => {
           count++;
-        });
+        }, entities);
 
         expect(count).toBe(3);
       });
@@ -226,9 +226,9 @@ describe('>>> Query', () => {
         const entities = query.filter(entityManager.entities);
 
         let count = 0;
-        query.foreach(entities, (entity: IEntity) => {
+        query.foreach((entity: IEntity) => {
           count++;
-        });
+        }, entities);
 
         expect(count).toBe(2);
       });
@@ -238,9 +238,9 @@ describe('>>> Query', () => {
         const entities = query.filter(entityManager.entities);
 
         let count = 0;
-        query.foreach(entities, (entity: IEntity) => {
+        query.foreach((entity: IEntity) => {
           count++;
-        });
+        }, entities);
 
         expect(count).toBe(1);
       });
@@ -250,9 +250,9 @@ describe('>>> Query', () => {
         const entities = query.filter(entityManager.entities);
 
         let count = 0;
-        query.foreach(entities, (entity: IEntity) => {
+        query.foreach((entity: IEntity) => {
           count++;
-        });
+        }, entities);
 
         expect(count).toBe(3);
       });
@@ -262,9 +262,9 @@ describe('>>> Query', () => {
         const entities = query.filter(entityManager.entities);
 
         let count = 0;
-        query.foreach(entities, (entity: IEntity) => {
+        query.foreach((entity: IEntity) => {
           count++;
-        });
+        }, entities);
 
         expect(count).toBe(3);
       });
@@ -274,9 +274,9 @@ describe('>>> Query', () => {
         const entities = query.filter(entityManager.entities);
 
         let count = 0;
-        query.foreach(entities, (entity: IEntity) => {
+        query.foreach((entity: IEntity) => {
           count++;
-        });
+        }, entities);
 
         expect(count).toBe(2);
       });

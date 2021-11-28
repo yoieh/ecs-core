@@ -28,13 +28,13 @@ export class Query {
     return entities.filter(this._filter);
   }
 
-  public map(entities: IEntity[], callback: (entity: IEntity) => IEntity): IEntity[] {
+  public map(callback: (entity: IEntity) => IEntity, entities: IEntity[]): IEntity[] {
     return entities.map((entity) => {
       return callback(entity);
     });
   }
 
-  public foreach(entities: IEntity[], callback: (entity: IEntity) => void): void {
+  public foreach(callback: (entity: IEntity) => void, entities: IEntity[]): void {
     entities.forEach((entity) => {
       if (this._filter(entity)) {
         callback(entity);
