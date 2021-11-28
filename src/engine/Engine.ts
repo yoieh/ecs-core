@@ -4,11 +4,15 @@ import { EntityManager } from '../ecs/EntityManager';
 import { Signal } from '@yoieh/signal';
 
 export class Engine implements IUpdate {
-  private stopUpdate = false;
-
   public onSystemAdded = new Signal();
 
   public onSystemRemoved = new Signal();
+
+  private _lastDeltaTime = 0;
+
+  public get lastDeltaTime() {
+    return this._lastDeltaTime;
+  }
 
   private static _instance: Engine;
   public static get instance(): Engine {
@@ -29,9 +33,12 @@ export class Engine implements IUpdate {
         system.onUpdate(deltaTime);
       }
     }
+
+    this._lastDeltaTime = deltaTime;
   }
 
   public registerSystem(system: BaseSystem): void {
+    system.onCreate(this._lastDeltaTime);
     this.systems.push(system);
     this.onSystemAdded.dispatch(system);
   }
@@ -39,6 +46,7 @@ export class Engine implements IUpdate {
   public unregisterSystem(system: BaseSystem): void {
     this.systems = this.systems.filter((s) => s !== system);
     this.onSystemRemoved.dispatch(system);
+    system.onDestroy(this._lastDeltaTime);
   }
 }
 
