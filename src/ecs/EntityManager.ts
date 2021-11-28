@@ -1,5 +1,5 @@
 import { Signal } from '@yoieh/signal';
-import { IEntity } from '..';
+import { Entity, IEntity } from '..';
 
 export class EntityManager {
   public onEntityAdded = new Signal();
@@ -37,7 +37,6 @@ export class EntityManager {
 
   addEntity(entity: IEntity) {
     this.entities.push(entity);
-    this.entityId += 1;
     this.onEntityAdded.dispatch(entity);
 
     return entity;
@@ -50,5 +49,12 @@ export class EntityManager {
       this._entities = this.entities.filter((e) => e.id !== id);
       this.onEntityRemoved.dispatch(entity);
     }
+  }
+
+  createEntity() {
+    this.entityId += 1;
+    const entity = new Entity(this.entityId);
+    this.addEntity(entity);
+    return entity;
   }
 }

@@ -47,10 +47,9 @@ describe('>>> SimpelSystem', () => {
     new SimpelSystem();
     const query = new Query((e: IEntity) => e.has(CValue));
 
-    const valueEntity = new Entity(1);
-    valueEntity.add(new CValue(initialValue));
+    const valueEntity = EntityManager.instance.createEntity();
 
-    EntityManager.instance.addEntity(valueEntity);
+    valueEntity.add(new CValue(initialValue));
 
     const filterdBefore = query.filter(EntityManager.instance.entities);
     expect(filterdBefore.length).toBe(1);

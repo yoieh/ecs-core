@@ -27,9 +27,9 @@ describe('>>> Query', () => {
     beforeEach(() => {
       entityManager = EntityManager.instance;
 
-      e1 = new Entity(1);
-      e2 = new Entity(2);
-      e3 = new Entity(3);
+      e1 = entityManager.createEntity();
+      e2 = entityManager.createEntity();
+      e3 = entityManager.createEntity();
       e4 = new Entity(4);
 
       e1.addComponent(new C1());
@@ -42,10 +42,6 @@ describe('>>> Query', () => {
 
       e3.addComponent(new C3());
       e4.addComponent(new C3());
-
-      entityManager.addEntity(e1);
-      entityManager.addEntity(e2);
-      entityManager.addEntity(e3);
     });
 
     afterEach(() => {
@@ -74,10 +70,6 @@ describe('>>> Query', () => {
         expect(entities).toBeDefined();
         expect(entities.length).toBe(3);
 
-        expect(entities[0].id).toBe(1);
-        expect(entities[1].id).toBe(2);
-        expect(entities[2].id).toBe(3);
-
         expect(query.matchesNone(entities)).toBe(false);
         expect(query.matchesAll(entities)).toBe(true);
         expect(query.matchesAllExcept(entities, e4)).toBe(true);
@@ -89,9 +81,6 @@ describe('>>> Query', () => {
 
         expect(entities).toBeDefined();
         expect(entities.length).toBe(2);
-
-        expect(entities[0].id).toBe(2);
-        expect(entities[1].id).toBe(3);
 
         expect(query.matchesNone(entities)).toBe(false);
         expect(query.matchesAll(entities)).toBe(true);
@@ -105,8 +94,6 @@ describe('>>> Query', () => {
         expect(entities).toBeDefined();
         expect(entities.length).toBe(1);
 
-        expect(entities[0].id).toBe(3);
-
         expect(query.matchesNone(entities)).toBe(false);
         expect(query.matchesAll(entities)).toBe(true);
         expect(query.matchesAllExcept(entities, e4)).toBe(true);
@@ -118,10 +105,6 @@ describe('>>> Query', () => {
 
         expect(entities).toBeDefined();
         expect(entities.length).toBe(3);
-
-        expect(entities[0].id).toBe(1);
-        expect(entities[1].id).toBe(2);
-        expect(entities[2].id).toBe(3);
 
         expect(query.matchesNone(entities)).toBe(false);
         expect(query.matchesAll(entities)).toBe(true);
@@ -136,10 +119,6 @@ describe('>>> Query', () => {
 
         expect(entities).toBeDefined();
         expect(entities.length).toBe(3);
-
-        expect(entities[0].id).toBe(1);
-        expect(entities[1].id).toBe(2);
-        expect(entities[2].id).toBe(3);
 
         expect(query.matchesNone(entities)).toBe(false);
         expect(query.matchesAll(entities)).toBe(true);
@@ -157,7 +136,6 @@ describe('>>> Query', () => {
 
         expect(beforeEntities).toBeDefined();
         expect(beforeEntities.length).toBe(1);
-        expect(beforeEntities[0].id).toBe(3);
 
         const updateQuery = new Query((entity: IEntity) => entity.hasNone(C3));
         const updateFilter = updateQuery.filter(entityManager.entities);
@@ -169,8 +147,6 @@ describe('>>> Query', () => {
 
         expect(updateEntities).toBeDefined();
         expect(updateEntities.length).toBe(2);
-        expect(updateEntities[0].id).toBe(1);
-        expect(updateEntities[1].id).toBe(2);
 
         const afterQuery = new Query((entity: IEntity) => entity.has(C3));
         const afterFilter = afterQuery.filter(entityManager.entities);
@@ -182,9 +158,6 @@ describe('>>> Query', () => {
 
         expect(afterEntities).toBeDefined();
         expect(afterEntities.length).toBe(beforeEntities.length + updateEntities.length);
-        expect(afterEntities[0].id).toBe(1);
-        expect(afterEntities[1].id).toBe(2);
-        expect(afterEntities[2].id).toBe(3);
       });
 
       it('should map to remove component C3 from all entities with a C3 componet', () => {
@@ -198,7 +171,6 @@ describe('>>> Query', () => {
 
         expect(beforeEntities).toBeDefined();
         expect(beforeEntities.length).toBe(1);
-        expect(beforeEntities[0].id).toBe(3);
 
         const updateQuery = new Query((entity: IEntity) => entity.has(C3));
         const updateFilter = updateQuery.filter(entityManager.entities);
@@ -210,7 +182,6 @@ describe('>>> Query', () => {
 
         expect(updateEntities).toBeDefined();
         expect(updateEntities.length).toBe(1);
-        expect(updateEntities[0].id).toBe(3);
 
         const afterQuery = new Query((entity: IEntity) => entity.has(C3));
         const afterFilter = afterQuery.filter(entityManager.entities);
