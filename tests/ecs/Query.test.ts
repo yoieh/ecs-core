@@ -110,6 +110,18 @@ describe('>>> Query', () => {
         expect(query.matchesAll(entities)).toBe(true);
         expect(query.matchesAllExcept(entities, e4)).toBe(true);
       });
+
+      it('should fiter with out inputing entities', () => {
+        const query = new Query((entity: IEntity) => entity.has(C1), entityManager);
+        const entities = query.filter();
+
+        expect(entities).toBeDefined();
+        expect(entities.length).toBe(3);
+
+        expect(query.matchesNone(entities)).toBe(false);
+        expect(query.matchesAll(entities)).toBe(true);
+        expect(query.matchesAllExcept(entities, e4)).toBe(true);
+      });
     });
 
     describe('>>> Query map', () => {

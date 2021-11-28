@@ -1,4 +1,5 @@
 import { IEntity } from '..';
+import { EntityManager } from '..';
 
 export type QueryFilter = (entity: IEntity) => boolean;
 
@@ -9,22 +10,21 @@ export class Query {
     return this._filter;
   }
 
-  private readonly _options: { [key: string]: any };
+  private readonly _entities: IEntity[];
 
-  public get options(): { [key: string]: any } {
-    return this._options;
-  }
+  private readonly _entityManager: EntityManager;
 
-  constructor(filter: QueryFilter, options: { [key: string]: any } = {}) {
+  constructor(filter: QueryFilter, entityManager: EntityManager = EntityManager.instance) {
     this._filter = filter;
-    this._options = options;
+    this._entityManager = entityManager;
+    this._entities = entityManager.entities;
   }
 
   public find(entities: IEntity[]): IEntity | undefined {
     return entities.find(this._filter);
   }
 
-  public filter(entities: IEntity[]): IEntity[] {
+  public filter(entities: IEntity[] = this._entities): IEntity[] {
     return entities.filter(this._filter);
   }
 
