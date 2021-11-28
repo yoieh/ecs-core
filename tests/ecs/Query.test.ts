@@ -206,6 +206,25 @@ describe('>>> Query', () => {
         expect(afterEntities).toBeDefined();
         expect(afterEntities.length).toBe(beforeEntities.length - updateEntities.length);
       });
+
+      it('should map to add component C3 to all entities missing C3 component without filter', () => {
+        const hasC3Query = new Query((entity: IEntity) => entity.has(C3), entityManager);
+        const beforeEntities = hasC3Query.map((entity: IEntity) => entity);
+
+        expect(beforeEntities).toBeDefined();
+        expect(beforeEntities.length).toBe(1);
+
+        const updateQuery = new Query((entity: IEntity) => entity.hasNone(C3), entityManager);
+        const updateEntities = updateQuery.map((entity: IEntity) => entity.add(new C3()));
+
+        expect(updateEntities).toBeDefined();
+        expect(updateEntities.length).toBe(2);
+
+        const afterEntities = hasC3Query.map((entity: IEntity) => entity);
+
+        expect(afterEntities).toBeDefined();
+        expect(afterEntities.length).toBe(beforeEntities.length + updateEntities.length);
+      });
     });
 
     describe('>>> Query foreach', () => {

@@ -10,31 +10,28 @@ export class Query {
     return this._filter;
   }
 
-  private readonly _entities: IEntity[];
-
   private readonly _entityManager: EntityManager;
 
   constructor(filter: QueryFilter, entityManager: EntityManager = EntityManager.instance) {
     this._filter = filter;
     this._entityManager = entityManager;
-    this._entities = entityManager.entities;
   }
 
   public find(entities: IEntity[]): IEntity | undefined {
     return entities.find(this._filter);
   }
 
-  public filter(entities: IEntity[] = this._entities): IEntity[] {
+  public filter(entities: IEntity[] = this._entityManager.entities): IEntity[] {
     return entities.filter(this._filter);
   }
 
-  public map(callback: (entity: IEntity) => IEntity, entities: IEntity[]): IEntity[] {
+  public map(callback: (entity: IEntity) => IEntity, entities: IEntity[] = this.filter()): IEntity[] {
     return entities.map((entity) => {
       return callback(entity);
     });
   }
 
-  public foreach(callback: (entity: IEntity) => void, entities: IEntity[]): void {
+  public foreach(callback: (entity: IEntity) => void, entities: IEntity[] = this.filter()): void {
     entities.forEach((entity) => {
       if (this._filter(entity)) {
         callback(entity);
