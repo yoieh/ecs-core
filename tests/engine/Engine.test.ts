@@ -24,7 +24,7 @@ describe('>>> Engine', () => {
     lastUpdate = now;
 
     engine.tick(dt);
-    // render(dt);
+    engine.render();
   };
 
   const loop = (updates: number) => {
@@ -71,6 +71,24 @@ describe('>>> Engine', () => {
     expect(spyOnUpdate1).toHaveBeenCalledTimes(updates);
     expect(spyOnUpdate2).toHaveBeenCalledTimes(updates);
     expect(spyOnUpdate3).toHaveBeenCalledTimes(updates);
+  });
+
+  it('should render registerd systems', () => {
+    engine = Engine.instance;
+    const s1 = engine.createSystem(S1);
+    const s2 = engine.createSystem(S2);
+    const s3 = engine.createSystem(S3);
+
+    const spyOnRender1 = jest.spyOn(s1, 'onRender');
+    const spyOnRender2 = jest.spyOn(s2, 'onRender');
+    const spyOnRender3 = jest.spyOn(s3, 'onRender');
+
+    const updates = 10;
+    loop(updates);
+
+    expect(spyOnRender1).toHaveBeenCalledTimes(updates);
+    expect(spyOnRender2).toHaveBeenCalledTimes(updates);
+    expect(spyOnRender3).toHaveBeenCalledTimes(updates);
   });
 
   it('should register systems', () => {

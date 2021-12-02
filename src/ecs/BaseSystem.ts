@@ -14,4 +14,6 @@ export abstract class BaseSystem {
   public onUpdate(deltaTime: number) {}
 
   public onDestroy(deltaTime: number) {}
+
+  public onRender(deltaTime: number) {}
 }
