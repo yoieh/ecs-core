@@ -45,6 +45,15 @@ export class Engine implements IUpdate {
     }
   }
 
+  public render() {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const system of this.systems) {
+      if (system.enabled) {
+        system.onRender(this._lastDeltaTime);
+      }
+    }
+  }
+
   public cleanUp(): void {
     // eslint-disable-next-line no-restricted-syntax
     for (const system of this.systemsToDestroy) {
